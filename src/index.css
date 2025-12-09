@@ -1,0 +1,38 @@
+@import "tailwindcss";
+
+/* -------------------------------
+   🌿 THEME VARIABLES 
+----------------------------------*/
+:root {
+  --primary: #a8e6cf;   /* faint parrot green */
+  --primary-2: #dcedc1; /* softer minty green */
+  --accent: #2d6a4f;    /* deep green for buttons */
+  --text: #1f2937;      /* neutral dark gray */
+}
+
+/* -------------------------------
+   🌿 GLOBAL BASE STYLES
+----------------------------------*/
+body {
+  background-color: var(--primary-2);
+  color: var(--text);
+  font-family: "Poppins", sans-serif;
+  margin: 0;
+  padding-top: 72px; /* space for fixed navbar */
+}
+
+/* -------------------------------
+   🌿 LINKS AND BUTTONS
+----------------------------------*/
+a {
+  text-decoration: none;
+  transition: all 0.18s ease;
+}
+
+button {
+  transition: all 0.18s ease;
+}
+
+button:hover {
+  background-color: var(--primary);
+}

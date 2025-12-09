@@ -1,0 +1,114 @@
+import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
+import "../globalStyles.css"; // import design system
+import { useAuth } from "../context/AuthContext";
+
+const Home = () => {
+  const { user } = useAuth();
+
+  const heroImages = ["/images/hero1.jpeg", "/images/team.jpeg", "/images/coach.jpeg"];
+  const [currentImage, setCurrentImage] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentImage((prev) => (prev + 1) % heroImages.length);
+    }, 4000);
+    return () => clearInterval(interval);
+  }, []);
+
+  const cardVariants = {
+    hidden: { opacity: 0, scale: 0.9 },
+    visible: { opacity: 1, scale: 1, transition: { duration: 0.5 } },
+    hover: { scale: 1.05, transition: { duration: 0.3 } },
+  };
+
+  return (
+    <div className="min-h-screen bg-surface dark:bg-gradient-dark text-center transition-all duration-500">
+      
+      {/* HERO SECTION */}
+      <section className="relative w-full h-[90vh] overflow-hidden flex items-center justify-center">
+        {heroImages.map((img, index) => (
+          <div
+            key={index}
+            className={`absolute inset-0 bg-cover bg-center transition-all duration-[2000ms] ease-in-out transform ${
+              index === currentImage ? "opacity-100 scale-110" : "opacity-0 scale-100"
+            }`}
+            style={{ backgroundImage: `url(${img})` }}
+          ></div>
+        ))}
+        <div className="absolute inset-0 bg-black/40"></div>
+        <div className="relative z-20 text-white px-6 max-w-3xl">
+          <h1 className="text-5xl font-extrabold mb-3 bg-clip-text text-transparent bg-gradient-sky-pink">
+            From Passion to Greatness
+          </h1>
+          <p className="text-lg italic mb-2">Game. Grit. Glory.</p>
+          <p className="text-md mb-6">Train hard, play smart, and rule the pitch.</p>
+          <div className="flex justify-center gap-4 flex-wrap">
+            <Link to="/about" className="btn-primary">Learn More</Link>
+            <Link to="/gallery" className="btn-secondary">View Gallery</Link>
+          </div>
+        </div>
+      </section>
+
+      {/* ABOUT */}
+      <section className="section">
+        <h2 className="heading">About Our Academy</h2>
+        <p className="subtext">
+          Under the expert guidance of former Maharashtra Ranji players
+          <strong> Sumeet Chavan</strong> and <strong>Prashaant Kore</strong>,
+          Sumeet Sports Cricket Academy shapes the next generation of cricketers
+          through disciplined training and focused match exposure.
+        </p>
+      </section>
+
+      {/* STATS SECTION */}
+      <section className="section grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
+        {[
+          { number: "200+", label: "Active Players" },
+          { number: "45+", label: "Tournament Wins" },
+          { number: "12+", label: "Certified Coaches" },
+        ].map((stat, i) => (
+          <motion.div key={i} variants={cardVariants} initial="hidden" whileInView="visible" whileHover="hover" className="card py-8">
+            <h3 className="text-3xl font-bold text-[#6739b7] dark:text-white">{stat.number}</h3>
+            <p className="text-gray-600 dark:text-gray-300">{stat.label}</p>
+          </motion.div>
+        ))}
+      </section>
+
+      {/* PROGRAMS SECTION */}
+      <section className="section">
+        <h2 className="heading">Programs & Facilities</h2>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto mt-10">
+          {[
+            { img: "/images/juniors.jpeg", title: "Junior Coaching Program" },
+            { img: "/images/advanced.jpg", title: "Advanced Player Program" },
+            { img: "/images/fitness.jpeg", title: "Fitness & Conditioning" },
+          ].map((program, index) => (
+            <motion.div key={index} variants={cardVariants} initial="hidden" whileInView="visible" whileHover="hover" className="card">
+              <img src={program.img} alt={program.title} className="card-img" />
+              <div className="card-body">
+                <h3 className="card-title">{program.title}</h3>
+                <p className="card-text">
+                  Specialized coaching focused on performance, skill enhancement, and tactical growth.
+                </p>
+                <Link to="/contact" className="btn-primary mt-4 inline-block">Join Now</Link>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+      </section>
+
+      {/* FOOTER */}
+      <footer className="footer">
+        <p>
+          © 2025 <strong>Sumeet Sports Cricket Academy</strong> — Sangli, Maharashtra
+          <br />
+          <span>info@sumeetsportsacademy.com | Follow us on social media</span>
+        </p>
+      </footer>
+    </div>
+  );
+};
+
+export default Home;
