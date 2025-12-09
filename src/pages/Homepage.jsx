@@ -181,7 +181,7 @@ const staticGallery = [
 
 
 // Filtering Logic
-const filteredImages = staticGallery;
+const filteredImages = [...galleryImages,...staticGallery];
 
 
 // Modal functions
@@ -1322,8 +1322,7 @@ useEffect(() => {
 </section>
 
 
- 
-      {/* GALLERY */}
+ {/* ⭐ GALLERY SECTION */}
 <section id="gallery-section" className="py-20 bg-gradient-to-r from-sky-200 to-pink-200">
   <div className="max-w-7xl mx-auto px-6">
 
@@ -1341,15 +1340,34 @@ useEffect(() => {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ delay: 0.3, duration: 0.8 }}
-      className="mt-3 text-gray-600 max-w-2xl mx-auto text-center mb-8"
+      className="mt-3 text-gray-600 max-w-2xl mx-auto text-center"
     >
-      Moments that define our academy — passion, teamwork, and excellence captured in every frame.
+      Moments that define our academy — passion, teamwork,
+      and excellence captured in every frame.
     </motion.p>
 
+    {/* 📌 CENTERED ADD BUTTON (ADMIN ONLY) */}
+    {user?.role === "admin" && (
+  <div className="mb-10 flex justify-center">
+    <div
+      onClick={() => setAddGalleryOpen(true)}
+      className="cursor-pointer flex flex-col items-center justify-center 
+      w-48 h-32 sm:w-56 sm:h-36 md:w-60 md:h-40 
+      rounded-2xl bg-white/40 backdrop-blur-xl border border-white/60 shadow-xl 
+      hover:scale-105 transition relative"
+    >
+      <div className="w-12 h-12 rounded-full bg-gradient-to-r from-green-500 to-green-700 
+      flex items-center justify-center text-white text-3xl shadow-lg">
+        +
+      </div>
+      <p className="mt-3 font-semibold text-sm text-gray-800">Add Image</p>
+    </div>
+  </div>
+)}
 
-    {/* IMAGE GRID */}
+
+    {/* 🖼 IMAGE GRID */}
     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-
       {filteredImages.slice(0, visibleCount).map((img, index) => (
         <motion.div
           key={index}
@@ -1362,20 +1380,17 @@ useEffect(() => {
             openImage(img);
           }}
         >
-          {/* Image */}
           <img src={img.url} alt="Gallery" className="w-full h-56 object-cover" />
 
-          {/* Hover Overlay */}
           <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 
             transition flex items-center justify-center">
             <p className="text-white text-lg font-semibold">View</p>
           </div>
         </motion.div>
       ))}
-
     </div>
 
-    {/* LOAD MORE */}
+    {/* 📌 LOAD MORE BUTTON */}
     <div className="text-center mt-10">
       {visibleCount < filteredImages.length && (
         <button
@@ -1387,92 +1402,94 @@ useEffect(() => {
       )}
     </div>
 
-    {/* MODAL PREVIEW */}
-    
-<AnimatePresence>
-  {modalOpen && modalImage && (
-    <motion.div
-      className="fixed inset-0 z-50 flex items-center justify-center"
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-      onClick={closeModal}
-    >
-      {/* Background overlay */}
-      <motion.div
-        className="absolute inset-0 bg-black/70"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        exit={{ opacity: 0 }}
-      />
-
-      {/* MODAL CONTENT */}
-      <motion.div
-        className="relative max-w-[90vw] max-h-[90vh] z-10 rounded-lg overflow-hidden"
-        initial={{ scale: 0.8, opacity: 0 }}
-        animate={{ scale: 1, opacity: 1 }}
-        exit={{ scale: 0.8, opacity: 0 }}
-        transition={{ duration: 0.25 }}
-        onClick={(e) => e.stopPropagation()}
-      >
-        {/* IMAGE */}
-        <img
-          src={modalImage}
-          alt="Preview"
-          className="max-h-[80vh] w-auto object-contain bg-black rounded-xl"
-        />
-
-        {/* TITLE */}
-        <p className="text-center text-white mt-3 text-lg font-semibold">
-          {filteredImages[currentIndex]?.title || "Gallery Image"}
-        </p>
-
-        {/* PREVIOUS */}
-        {currentIndex > 0 && (
-          <button
-            onClick={(e) => {
-              e.stopPropagation();
-              const prev = currentIndex - 1;
-              setCurrentIndex(prev);
-              setModalImage(filteredImages[prev].url);
-            }}
-            className="absolute left-3 top-1/2 -translate-y-1/2 bg-white/60 hover:bg-white text-black p-3 rounded-full shadow text-xl"
-          >
-            ‹
-          </button>
-        )}
-
-        {/* NEXT */}
-        {currentIndex < filteredImages.length - 1 && (
-          <button
-            onClick={(e) => {
-              e.stopPropagation();
-              const next = currentIndex + 1;
-              setCurrentIndex(next);
-              setModalImage(filteredImages[next].url);
-            }}
-            className="absolute right-3 top-1/2 -translate-y-1/2 bg-white/60 hover:bg-white text-black p-3 rounded-full shadow text-xl"
-          >
-            ›
-          </button>
-        )}
-
-        {/* CLOSE */}
-        <button
+    {/* 🔍 IMAGE PREVIEW MODAL */}
+    <AnimatePresence>
+      {modalOpen && modalImage && (
+        <motion.div
+          className="fixed inset-0 z-50 flex items-center justify-center"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
           onClick={closeModal}
-          className="absolute top-4 right-4 bg-white/90 text-black p-2 rounded-full shadow text-xl"
         >
-          ✕
-        </button>
-      </motion.div>
-    </motion.div>
-  )}
-</AnimatePresence>
+          <motion.div
+            className="absolute inset-0 bg-black/70"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+          />
+
+          <motion.div
+            className="relative max-w-[90vw] max-h-[90vh] z-10 rounded-lg overflow-hidden"
+            initial={{ scale: 0.8, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            exit={{ scale: 0.8, opacity: 0 }}
+            transition={{ duration: 0.25 }}
+            onClick={(e) => e.stopPropagation()}
+          >
+            <img
+              src={modalImage}
+              alt="Preview"
+              className="max-h-[80vh] w-auto object-contain bg-black rounded-xl"
+            />
+
+            <p className="text-center text-white mt-3 text-lg font-semibold">
+              {filteredImages[currentIndex]?.title || "Gallery Image"}
+            </p>
+
+            {/* Prev */}
+            {currentIndex > 0 && (
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  const prev = currentIndex - 1;
+                  setCurrentIndex(prev);
+                  setModalImage(filteredImages[prev].url);
+                }}
+                className="absolute left-3 top-1/2 -translate-y-1/2 bg-white/60 hover:bg-white text-black p-3 rounded-full shadow text-xl"
+              >
+                ‹
+              </button>
+            )}
+
+            {/* Next */}
+            {currentIndex < filteredImages.length - 1 && (
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  const next = currentIndex + 1;
+                  setCurrentIndex(next);
+                  setModalImage(filteredImages[next].url);
+                }}
+                className="absolute right-3 top-1/2 -translate-y-1/2 bg-white/60 hover:bg-white text-black p-3 rounded-full shadow text-xl"
+              >
+                ›
+              </button>
+            )}
+
+            {/* Close */}
+            <button
+              onClick={closeModal}
+              className="absolute top-4 right-4 bg-white/90 text-black p-2 rounded-full shadow text-xl"
+            >
+              ✕
+            </button>
+          </motion.div>
+        </motion.div>
+      )}
+    </AnimatePresence>
+
+    {/* 📌 ADD GALLERY MODAL */}
+    <AddGalleryModal
+      open={addGalleryOpen}
+      onClose={() => setAddGalleryOpen(false)}
+      onSuccess={() => fetchGallery().then(setGalleryImages)}
+    />
 
   </div>
 </section>
 
-
+ 
 
 {/* ⭐ START SHOP SECTION ⭐ */}
 <section id="shop-section" className="py-20 bg-gradient-to-r from-sky-200 to-pink-200">

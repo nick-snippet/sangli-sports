@@ -1,48 +1,45 @@
-// src/firebase/gallery.js
-
-import { db, storage, auth } from "./client.js";
+import { db, storage } from "./client";
 import {
   collection,
   addDoc,
   getDocs,
-  serverTimestamp,
   deleteDoc,
-  doc,
+  doc
 } from "firebase/firestore";
-import { ref, uploadBytes, getDownloadURL, deleteObject } from "firebase/storage";
+import {
+  ref,
+  uploadBytes,
+  getDownloadURL,
+  deleteObject
+} from "firebase/storage";
 
-const galleryRef = collection(db, "gallery");
+// 📌 Fetch gallery items
+export async function fetchGallery() {
+  const snap = await getDocs(collection(db, "gallery"));
+  return snap.docs.map((d) => ({ id: d.id, ...d.data() }));
+}
 
-/** ➕ ADD GALLERY IMAGE  (url + title + timestamp) */
+// 📌 Add gallery image + optional title
 export async function addGalleryImage(file, title = "") {
-  const user = auth.currentUser;
-  if (!user) throw new Error("Not authorized");
-
-  // upload image
-  const ext = file.type.split("/")[1] || "jpg";
-  const fileRef = ref(storage, `gallery/${Date.now()}.${ext}`);
+  // Upload to storage
+  const fileRef = ref(storage, `gallery/${Date.now()}-${file.name}`);
   await uploadBytes(fileRef, file);
-  const url = await getDownloadURL(fileRef);
+  const imageUrl = await getDownloadURL(fileRef);
 
-  // save firestore doc
-  await addDoc(galleryRef, {
-    url,
-    title,
-    createdAt: serverTimestamp(),
+  // Save record
+  return addDoc(collection(db, "gallery"), {
+    imageUrl,
+    title: title || "", // empty string if not given
+    createdAt: Date.now()
   });
 }
 
-/** 🔍 FETCH GALLERY IMAGES (latest first) */
-export async function fetchGallery() {
-  const snap = await getDocs(galleryRef);
-  return snap.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
-}
-
-/** 🗑 DELETE IMAGE */
-export async function deleteGallery(id, url) {
-  const user = auth.currentUser;
-  if (!user) throw new Error("Not authorized");
-
+// 📌 Delete gallery image (Firestore + Storage)
+export async function deleteGallery(id, imageUrl) {
   await deleteDoc(doc(db, "gallery", id));
-  await deleteObject(ref(storage, url.replace(/.*\/o\//, "").split("?")[0]));
+
+  if (imageUrl) {
+    const imgRef = ref(storage, imageUrl);
+    await deleteObject(imgRef).catch(() => {});
+  }
 }
