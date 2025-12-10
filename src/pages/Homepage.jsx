@@ -654,7 +654,10 @@ useEffect(() => {
           name={p.name}
           tournament={p.tournament}
           image={p.image}
-         // isAdmin={user?.role === "admin"}
+         isAdmin={false}
+           onEdit={() => {}}
+          onReplaceImage={() => {}}
+         onDelete={() => {}}
         />
       ))}
 
