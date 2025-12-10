@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { addGalleryImage } from "../../firebase/gallery";
 
-export default function AddGalleryModal({ open, onClose, onSuccess }) {
+export default function AddGalleryModal({ open, onClose, onSave }) {
   const [title, setTitle] = useState("");
   const [file, setFile] = useState(null);
   const [uploading, setUploading] = useState(false);
@@ -15,13 +15,21 @@ export default function AddGalleryModal({ open, onClose, onSuccess }) {
 
     try {
       setUploading(true);
-      await addGalleryImage(file, title);  // 👈 title optional
+
+      // 🔥 Upload to Firebase
+      await addGalleryImage(file, title);
+
+      // Reset form
       setUploading(false);
       setTitle("");
       setFile(null);
-      onSuccess && onSuccess();
-      onClose();
+
+      // 🔁 Refresh Gallery
+      if (onSave) await onSave();
+
+      onClose(); // Close modal
     } catch (err) {
+      console.error(err);
       alert("Failed to upload image.");
       setUploading(false);
     }
@@ -58,9 +66,7 @@ export default function AddGalleryModal({ open, onClose, onSuccess }) {
             />
           </label>
 
-          {file && (
-            <p className="text-sm text-gray-600">Selected: {file.name}</p>
-          )}
+          {file && <p className="text-sm text-gray-600">Selected: {file.name}</p>}
 
           {/* Buttons */}
           <div className="flex gap-3 mt-4">

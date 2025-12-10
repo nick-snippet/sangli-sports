@@ -1289,7 +1289,7 @@ useEffect(() => {
 </section>
 
 
- {/* ⭐ GALLERY SECTION */}
+{/* ⭐ GALLERY SECTION */}
 <section id="gallery-section" className="py-20 bg-gradient-to-r from-sky-200 to-pink-200">
   <div className="max-w-7xl mx-auto px-6">
 
@@ -1315,23 +1315,22 @@ useEffect(() => {
 
     {/* 📌 CENTERED ADD BUTTON (ADMIN ONLY) */}
     {user?.role === "admin" && (
-  <div className="mb-10 flex justify-center">
-    <div
-      onClick={() => setAddGalleryOpen(true)}
-      className="cursor-pointer flex flex-col items-center justify-center 
-      w-48 h-32 sm:w-56 sm:h-36 md:w-60 md:h-40 
-      rounded-2xl bg-white/40 backdrop-blur-xl border border-white/60 shadow-xl 
-      hover:scale-105 transition relative"
-    >
-      <div className="w-12 h-12 rounded-full bg-gradient-to-r from-green-500 to-green-700 
-      flex items-center justify-center text-white text-3xl shadow-lg">
-        +
+      <div className="mb-10 flex justify-center">
+        <div
+          onClick={() => setAddGalleryOpen(true)}
+          className="cursor-pointer flex flex-col items-center justify-center 
+          w-48 h-32 sm:w-56 sm:h-36 md:w-60 md:h-40 
+          rounded-2xl bg-white/40 backdrop-blur-xl border border-white/60 shadow-xl 
+          hover:scale-105 transition relative"
+        >
+          <div className="w-12 h-12 rounded-full bg-gradient-to-r from-green-500 to-green-700 
+          flex items-center justify-center text-white text-3xl shadow-lg">
+            +
+          </div>
+          <p className="mt-3 font-semibold text-sm text-gray-800">Add Image</p>
+        </div>
       </div>
-      <p className="mt-3 font-semibold text-sm text-gray-800">Add Image</p>
-    </div>
-  </div>
-)}
-
+    )}
 
     {/* 🖼 IMAGE GRID */}
     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
@@ -1341,16 +1340,46 @@ useEffect(() => {
           initial={{ opacity: 0, scale: 0.9 }}
           whileInView={{ opacity: 1, scale: 1 }}
           transition={{ delay: index * 0.03, duration: 0.4 }}
-          className="group relative rounded-xl overflow-hidden shadow-md hover:shadow-xl transition cursor-pointer"
-          onClick={() => {
-            setCurrentIndex(index);
-            openImage(img);
-          }}
+          className="group relative rounded-xl overflow-hidden shadow-md hover:shadow-xl transition"
         >
-          <img src={img.url} alt="Gallery" className="w-full h-56 object-cover" />
 
-          <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 
-            transition flex items-center justify-center">
+          {/* IMAGE (click opens modal) */}
+          <div
+            className="cursor-pointer"
+            onClick={() => {
+              setCurrentIndex(index);
+              openImage(img);
+            }}
+          >
+            <img src={img.url} alt="Gallery" className="w-full h-56 object-cover" />
+          </div>
+
+          {/* 🗑 DELETE BUTTON (Dynamic Only) */}
+          {user?.role === "admin" && img.id && (
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                if (confirm("Delete this image?")) {
+                  deleteGallery(img.id).then(() =>
+                    fetchGallery().then(setGalleryImages)
+                  );
+                }
+              }}
+              className="absolute top-2 right-2 bg-red-600 text-white text-xs px-2 py-1 rounded-lg shadow hover:bg-red-700 z-20"
+            >
+              Delete
+            </button>
+          )}
+
+          {/* VIEW OVERLAY */}
+          <div
+            onClick={() => {
+              setCurrentIndex(index);
+              openImage(img);
+            }}
+            className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 
+            transition flex items-center justify-center cursor-pointer"
+          >
             <p className="text-white text-lg font-semibold">View</p>
           </div>
         </motion.div>
@@ -1379,12 +1408,7 @@ useEffect(() => {
           exit={{ opacity: 0 }}
           onClick={closeModal}
         >
-          <motion.div
-            className="absolute inset-0 bg-black/70"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-          />
+          <motion.div className="absolute inset-0 bg-black/70" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} />
 
           <motion.div
             className="relative max-w-[90vw] max-h-[90vh] z-10 rounded-lg overflow-hidden"
@@ -1394,11 +1418,7 @@ useEffect(() => {
             transition={{ duration: 0.25 }}
             onClick={(e) => e.stopPropagation()}
           >
-            <img
-              src={modalImage}
-              alt="Preview"
-              className="max-h-[80vh] w-auto object-contain bg-black rounded-xl"
-            />
+            <img src={modalImage} alt="Preview" className="max-h-[80vh] w-auto object-contain bg-black rounded-xl" />
 
             <p className="text-center text-white mt-3 text-lg font-semibold">
               {filteredImages[currentIndex]?.title || "Gallery Image"}
@@ -1448,13 +1468,18 @@ useEffect(() => {
 
     {/* 📌 ADD GALLERY MODAL */}
     <AddGalleryModal
-      open={addGalleryOpen}
-      onClose={() => setAddGalleryOpen(false)}
-      onSuccess={() => fetchGallery().then(setGalleryImages)}
-    />
+  open={addGalleryOpen}
+  onClose={() => setAddGalleryOpen(false)}
+  onSave={async () => {
+    const data = await fetchGallery();
+    setGalleryImages(data);
+  }}
+/>
+
 
   </div>
 </section>
+
 
  
 
