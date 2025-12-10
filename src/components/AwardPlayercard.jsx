@@ -6,9 +6,9 @@ export default function AwardPlayerCard({
   tournament,
   image,
   isAdmin,
-  onEdit,
-  onReplaceImage,
-  onDelete,
+  onEdit = () => {},
+  onReplaceImage = () => {},
+  onDelete = () => {}
 }) {
   // Normalize tournament text formatting
   let tournamentLines = [];
