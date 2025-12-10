@@ -16,8 +16,7 @@ import { FaInstagram, FaLinkedin, FaGlobe } from "react-icons/fa";
 import { GiCricketBat } from "react-icons/gi";
 //players
 import { fetchPlayers, deletePlayer,updatePlayer,replacePlayerImage } from "../firebase/players.js";
-import EditTextModal from "../components/admin/EditTextModal.jsx";
-import ReplaceImageModal from "../components/admin/ReplaceImageModal.jsx";
+
 //gallery
 import { fetchGallery, addGalleryImage, deleteGallery } from "../firebase/gallery.js";
 import AddGalleryModal from "../components/modals/AddGalleryModal.jsx";
@@ -93,8 +92,6 @@ const [addCoachOpen, setAddCoachOpen] = useState(false);
 //players states
 const [dynamicPlayers, setDynamicPlayers] = useState([]);
 const [addPlayerOpen, setAddPlayerOpen] = useState(false);
-const [editingPlayer, setEditingPlayer] = useState(null);
-const [replacingImagePlayer, setReplacingImagePlayer] = useState(null);
 
 // Load players once
 
@@ -672,8 +669,7 @@ useEffect(() => {
       tournament={p.tournament}
       image={p.imageUrl}
       isAdmin={user?.role === "admin"}
-      onEdit={() => setEditingPlayer(p)}             // 👈 use existing
-      onReplaceImage={() => setReplacingImagePlayer(p)}  // 👈 use existing
+       // 👈 use existing
       onDelete={() => handleDeletePlayer(p.id)}
     />
     
@@ -699,38 +695,6 @@ useEffect(() => {
   onClose={() => setAddPlayerOpen(false)}
   onSuccess={() => fetchPlayers().then(setDynamicPlayers)}
 />
-
-{/* ✏ EDIT PLAYER TEXT MODAL */}
-<EditTextModal
-  isOpen={!!editingPlayer}
-  initialText={{
-    title: editingPlayer?.name || "",
-    desc: editingPlayer?.tournament || ""
-  }}
-  onSave={async (data) => {
-    await updatePlayer(editingPlayer.id, {
-      name: data.title,
-      tournament: data.desc
-    });
-    setEditingPlayer(null);
-    fetchPlayers().then(setDynamicPlayers);
-  }}
-  onClose={() => setEditingPlayer(null)}
-/>
-
-
-{/* 🖼 REPLACE IMAGE MODAL */}
-<ReplaceImageModal
-  open={!!replacingImagePlayer}
-  currentUrl={replacingImagePlayer?.imageUrl}
-  onSave={async (file) => {
-    await replacePlayerImage(replacingImagePlayer.id, file);
-    setReplacingImagePlayer(null);
-    fetchPlayers().then(setDynamicPlayers);
-  }}
-  onClose={() => setReplacingImagePlayer(null)}
-/>
-
 
    
   </div>

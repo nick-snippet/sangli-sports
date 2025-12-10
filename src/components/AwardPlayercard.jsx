@@ -58,21 +58,9 @@ export default function AwardPlayerCard({
       {/* Admin Controls */}
       {isAdmin && (
         <div className="mt-4 flex justify-center flex-wrap gap-3">
-          <button
-            onClick={onEdit}
-            className="px-5 py-2 bg-blue-600 text-white rounded-full text-sm shadow hover:scale-105 transition"
-          >
-            Edit
-          </button>
-
-          <button
-            onClick={onReplaceImage}
-            className="px-5 py-2 bg-purple-600 text-white rounded-full text-sm shadow hover:scale-105 transition"
-          >
-            Replace Image
-          </button>
-
-          <button
+          
+           
+         <button
             onClick={onDelete}
             className="px-4 py-2 bg-red-600 text-white rounded-full text-sm shadow hover:scale-105 transition"
           >
