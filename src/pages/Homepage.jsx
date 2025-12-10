@@ -1377,10 +1377,10 @@ useEffect(() => {
               setCurrentIndex(index);
               openImage(img);
             }}
-            className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 
-            transition flex items-center justify-center cursor-pointer"
+            className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 
+            transition flex items-center justify-center cursor-pointer pointer-events-none"
           >
-            <p className="text-white text-lg font-semibold">View</p>
+            <p className="text-white text-lg font-semibold"></p>
           </div>
         </motion.div>
       ))}
