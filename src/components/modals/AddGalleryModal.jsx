@@ -30,7 +30,7 @@ export default function AddGalleryModal({ open, onClose, onSave }) {
       onClose(); // Close modal
     } catch (err) {
       console.log(err);
-      alert("Failed to upload image.");
+      alert(err.message);
       setUploading(false);
     }
   };
