@@ -1765,47 +1765,110 @@ With A Decade Of Experience, Sumeet Sports Shoppe Has Become A One-Stop Solution
     </div>
 
   </div>
-</section>
+</section> 
       {/* FOOTER */}
-      <footer className="bg-[#0b1020] text-gray-300 rounded-t-[40px] pt-12">
-        <div className="max-w-6xl mx-auto px-6 pb-12 grid grid-cols-1 md:grid-cols-4 gap-8">
-          <div>
-            <img src="/images/logobg.png" className="w-20 h-20  mx-7 md:mx-4  mb-3  border-gray-400" alt="logo" />
-            <p className=" text-2xl"><b>Sumeet Sports</b> </p> <p>Cricket Academy — Sangli</p>
-          </div>
+      <section className="bg-[#0b1020] text-gray-300 rounded-t-[40px] pt-12">
+  <div className="max-w-6xl mx-auto px-6 pb-12 grid grid-cols-1 md:grid-cols-4 gap-8">
 
-          <div>
-            <h4 className="font-semibold mb-2 text-white text-2xl">Contact</h4>
-            <p className="text-sm">info@sumeetsportsacademy.com</p>
-            <p className="text-lg text-gray-200 font-semibold">📞 +91 9403230200</p>
-            <p className="text-lg text-gray-200 font-semibold">📞 +91 7507878219</p>
-          </div>
+    <div>
+      <img
+        src="/images/logobg.png"
+        className="w-20 h-20 mx-7 md:mx-4 mb-3"
+        alt="logo"
+      />
+      <p className="text-2xl font-bold">Sumeet Sports</p>
+      <p>Cricket Academy — Sangli</p>
+    </div>
 
-          <div>
-            <h4 className="font-semibold mb-2 text-white text-2xl">Quick Links</h4>
-            <ul className="text-sm space-y-2">
-              <li><a href="#home-section" className="hover:underline">Home</a></li>
-              <li><a href="#about-section" className="hover:underline">About</a></li>
-              <li><a href="#gallery-section" className="hover:underline">Gallery</a></li>
-              <li><a href="#contact-section" className="hover:underline">Contact</a></li>
-            </ul>
-          </div>
+    <div>
+      <h4 className="font-semibold mb-2 text-white text-2xl">Contact</h4>
+      <p className="text-sm">info@sumeetsportsacademy.com</p>
+      <p className="text-lg text-gray-200 font-semibold">📞 +91 9403230200</p>
+      <p className="text-lg text-gray-200 font-semibold">📞 +91 7507878219</p>
+    </div>
 
-          <div>
-            <h4 className="font-semibold mb-2 text-white text-2xl">Follow Us</h4>
-            <div className="flex gap-3">
-              <a href="https://www.instagram.com/sumeetsports_cricket_academy  " className="w-9 h-9 rounded-full bg-pink-500 flex items-center justify-center hover:scale-110 transition" aria-label="Instagram"><FaInstagram className="text-white" /></a>
-              <a href="#" className="w-9 h-9 rounded-full bg-blue-700 flex items-center justify-center hover:scale-110 transition" aria-label="LinkedIn"><FaLinkedin className="text-white" /></a>
-              <a href="#" className="w-9 h-9 rounded-full bg-gray-800 flex items-center justify-center hover:scale-110 transition" aria-label="Website"><FaGlobe className="text-white" /></a>
-              <a href="#" className="w-9 h-9 rounded-full bg-orange-500 flex items-center justify-center hover:scale-110 transition" aria-label="Cricket"><GiCricketBat className="text-white" /></a>
-            </div>
-          </div>
-        </div>
+    <div>
+      <h4 className="font-semibold mb-2 text-white text-2xl">Quick Links</h4>
+      <ul className="text-sm space-y-2">
+        <li>
+          <span
+            onClick={() =>
+              document.getElementById("home-section")?.scrollIntoView({ behavior: "smooth" })
+            }
+            className="cursor-pointer hover:underline"
+          >
+            Home
+          </span>
+        </li>
+        <li>
+          <span
+            onClick={() =>
+              document.getElementById("about-section")?.scrollIntoView({ behavior: "smooth" })
+            }
+            className="cursor-pointer hover:underline"
+          >
+            About
+          </span>
+        </li>
+        <li>
+          <span
+            onClick={() =>
+              document.getElementById("gallery-section")?.scrollIntoView({ behavior: "smooth" })
+            }
+            className="cursor-pointer hover:underline"
+          >
+            Gallery
+          </span>
+        </li>
+        <li>
+          <span
+            onClick={() =>
+              document.getElementById("contact-section")?.scrollIntoView({ behavior: "smooth" })
+            }
+            className="cursor-pointer hover:underline"
+          >
+            Contact
+          </span>
+        </li>
+      </ul>
+    </div>
 
-        <div className="border-t border-white/10 py-6 text-center text-sm">© {new Date().getFullYear()} Sumeet Sports Cricket Academy — All rights reserved.</div>
-        <h6  className="text-sm"><p className="text-sm text-gray-900"> D.B.Nadim </p></h6>     
-      </footer>
+    <div>
+      <h4 className="font-semibold mb-2 text-white text-2xl">Follow Us</h4>
+      <div className="flex gap-3">
+        <a
+          href="https://www.instagram.com/sumeetsports_cricket_academy"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="w-9 h-9 rounded-full bg-pink-500 flex items-center justify-center hover:scale-110 transition"
+        >
+          <FaInstagram className="text-white" />
+        </a>
 
+        <a className="w-9 h-9 rounded-full bg-blue-700 flex items-center justify-center hover:scale-110 transition">
+          <FaLinkedin className="text-white" />
+        </a>
+
+        <a className="w-9 h-9 rounded-full bg-gray-800 flex items-center justify-center hover:scale-110 transition">
+          <FaGlobe className="text-white" />
+        </a>
+
+        <a className="w-9 h-9 rounded-full bg-orange-500 flex items-center justify-center hover:scale-110 transition">
+          <GiCricketBat className="text-white" />
+        </a>
+      </div>
+    </div>
+
+  </div>
+
+  <div className="border-t border-white/10 py-6 text-center text-sm">
+    © {new Date().getFullYear()} Sumeet Sports Cricket Academy — All rights reserved.
+  </div>
+
+  <p className="text-center text-xs text-gray-500 pb-4">
+    D.B. Nadim
+  </p>
+</section>
       {/* SELECTED CARD MODAL */} 
       <AnimatePresence>
         {selectedCard && (
