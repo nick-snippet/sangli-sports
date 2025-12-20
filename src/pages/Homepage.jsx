@@ -1621,7 +1621,7 @@ With A Decade Of Experience, Sumeet Sports Shoppe Has Become A One-Stop Solution
     Message: ${contactForm.message}`;
 
     const whatsappURL = `https://wa.me/918830807879?text=${encodeURIComponent(msg)}`;
-    window.open(whatsappURL, "_blank");
+    window.open(whatsappURL, "_blank","noopener,noreferrer");
   }}
 >
   {/* First + Last Name */}
