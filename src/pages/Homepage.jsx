@@ -1614,9 +1614,13 @@ With A Decade Of Experience, Sumeet Sports Shoppe Has Become A One-Stop Solution
   onSubmit={(e) => {
     e.preventDefault();
 
-    const msg = `Hello Sumeet Sports Academy,%0A%0AName: ${contactForm.first} ${contactForm.last}%0AContact: ${contactForm.phone}%0AEmail: ${contactForm.email}%0AMessage: ${contactForm.message}`;
+    const msg = `Hello Sumeet Sports Academy, 
+    Name: ${contactForm.first} ${contactForm.last} 
+    Contact: ${contactForm.phone}  
+     Email: ${contactForm.email}
+    Message: ${contactForm.message}`;
 
-    const whatsappURL = `https://wa.me/918830807879?text=${msg}`;
+    const whatsappURL = `https://wa.me/918830807879?text=${encodeURIComponent(msg)}`;
     window.open(whatsappURL, "_blank");
   }}
 >
