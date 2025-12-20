@@ -62,7 +62,7 @@ export default function HeroSection() {
         className="relative z-20 text-center px-6 max-w-3xl"
       >
         <h1 className="text-4xl md:text-6xl font-extrabold text-white drop-shadow-2xl">
-          Train Hard ,Play Smart.
+          Train Hard, Play Smart.
         </h1>
 
         <p className="mt-4 text-lg md:text-2xl text-white drop-shadow-lg">
