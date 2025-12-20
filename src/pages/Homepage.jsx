@@ -1616,7 +1616,7 @@ With A Decade Of Experience, Sumeet Sports Shoppe Has Become A One-Stop Solution
 
     const msg = `Hello Sumeet Sports Academy,%0A%0AName: ${contactForm.first} ${contactForm.last}%0AContact: ${contactForm.phone}%0AEmail: ${contactForm.email}%0AMessage: ${contactForm.message}`;
 
-    const whatsappURL = `https://wa.me/9657923492?text=${msg}`;
+    const whatsappURL = `https://wa.me/8378071361?text=${msg}`;
     window.open(whatsappURL, "_blank");
   }}
 >
