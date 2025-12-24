@@ -1620,7 +1620,7 @@ With A Decade Of Experience, Sumeet Sports Shoppe Has Become A One-Stop Solution
      Email: ${contactForm.email}
     Message: ${contactForm.message}`;
 
-    const whatsappURL = `https://wa.me/918830807879?text=${encodeURIComponent(msg)}`;
+    const whatsappURL = `https://wa.me/917030578219?text=${encodeURIComponent(msg)}`;
     window.open(whatsappURL, "_blank","noopener,noreferrer");
   }}
 >
@@ -1865,7 +1865,7 @@ With A Decade Of Experience, Sumeet Sports Shoppe Has Become A One-Stop Solution
     © {new Date().getFullYear()} Sumeet Sports Cricket Academy — All rights reserved.
   </div>
 
-  <p className="text-center text-xs text-gray-500 pb-4">
+  <p className="text-center text-xs text-gray-900 pb-4">
     D.B. Nadim
   </p>
 </section>
