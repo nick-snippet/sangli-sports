@@ -1,4 +1,4 @@
-/** @type {import('tailwindcss').Config} */
+/** @type {import('tailwindcss').Config} */ 
 export default {
   darkMode: "class",
   content: [
@@ -31,7 +31,7 @@ export default {
         "gradient-sky-pink": "linear-gradient(90deg, #56CCF2, #F39F9F)",
         "gradient-dark": "linear-gradient(135deg, #050507, #0b0b10, #141418)",
       },
-    },
+    }, 
   },
   plugins: [],
 };
